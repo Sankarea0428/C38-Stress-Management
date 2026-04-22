@@ -100,14 +100,30 @@ with tab2:
 
 with tab3:
     st.header("🕳️ 匿名压力树洞")
-    st.write("这是一个简单的交互区域，用于释放压力。")
+    st.write("在这里写下你的困扰，系统会为你推荐相关的校园资源建议。")
+    
     with st.form("hollow"):
-        text = st.text_area("此刻你的压力是什么？")
-        btn = st.form_submit_button("丢进树洞")
-        if btn and text:
+        user_input = st.text_area("此刻你的压力是什么？（例如：申研、学业、社交等）")
+        submit_btn = st.form_submit_button("丢进树洞")
+        
+        if submit_btn and user_input:
             st.success("压力已接收，记得给自己一个拥抱！")
+            
+            # 扩展功能：根据关键词条推荐校园资源
+            st.markdown("### 💡 针对你的压力，我们建议：")
+            
+            if "申研" in user_input or "考研" in user_input:
+                st.info("📚 **发现你在关注升学：** 建议参考西浦 XJTLU 相关的升学指导资料，或咨询中心提供的申研规划建议。")
+            
+            elif "学业" in user_input or "考试" in user_input or "作业" in user_input:
+                st.info("📝 **学业压力：** 建议访问学习资源中心 (LRC) 或联系学术导师进行咨询。")
+            
+            elif "社交" in user_input or "孤独" in user_input:
+                st.info("🤝 **社交建议：** 西浦有丰富的社团活动，尝试加入一个感兴趣的俱乐部来扩大社交圈吧！")
+            
+            else:
+                st.info("✨ **通用建议：** 保持深呼吸，如果压力过大，可以前往一站式学生服务中心寻求专业的心理咨询帮助。")
+            
             st.balloons()
-
-# --- 页脚 ---
 st.markdown("---")
 st.caption("© 2026 Group C38 - 基于 LIF001 课程调研成果开发")
