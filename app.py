@@ -106,23 +106,36 @@ with tab3:
         user_input = st.text_area("此刻你的压力是什么？（例如：申研、学业、社交等）")
         submit_btn = st.form_submit_button("丢进树洞")
         
-        if submit_btn and user_input:
+       if submit_btn and user_input:
             st.success("压力已接收，记得给自己一个拥抱！")
-            
-            # 扩展功能：根据关键词条推荐校园资源
             st.markdown("### 💡 针对你的压力，我们建议：")
             
+            # 关联西浦官方资源
             if "申研" in user_input or "考研" in user_input:
-                st.info("📚 **发现你在关注升学：** 建议参考西浦 XJTLU 相关的升学指导资料，或咨询中心提供的申研规划建议。")
+                st.info("📚 **发现你在关注升学：**")
+                st.markdown("""
+                - 建议访问 [西浦升学就业处官网](https://www.xjtlu.edu.cn/zh/study/career-development-and-employability) 获取最新的升学指导。
+                - 查看 [西浦研究生申请指南](https://www.xjtlu.edu.cn/zh/admissions/masters/how-to-apply) 获取详细流程。
+                """)
             
-            elif "学业" in user_input or "考试" in user_input or "作业" in user_input:
-                st.info("📝 **学业压力：** 建议访问学习资源中心 (LRC) 或联系学术导师进行咨询。")
+            elif "学业" in user_input or "考试" in user_input:
+                st.info("📝 **学业压力：**")
+                st.markdown("""
+                - 访问 [学习资源中心 (LRC)](https://lib.xjtlu.edu.cn/) 获取学术支持。
+                - 查看 [教务处 (Registry)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/registry) 了解学术政策。
+                """)
             
             elif "社交" in user_input or "孤独" in user_input:
-                st.info("🤝 **社交建议：** 西浦有丰富的社团活动，尝试加入一个感兴趣的俱乐部来扩大社交圈吧！")
+                st.info("🤝 **社交与校园生活：**")
+                st.markdown("""
+                - 关注 [西浦学生事务处 (SAO)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/student-affairs-office) 了解社团与活动。
+                """)
             
             else:
-                st.info("✨ **通用建议：** 保持深呼吸，如果压力过大，可以前往一站式学生服务中心寻求专业的心理咨询帮助。")
+                st.info("✨ **通用资源：**")
+                st.markdown("""
+                - 如需专业支持，请联系 [心理健康咨询中心 (MHC)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/mental-health-development-centre)。
+                """)
             
             st.balloons()
 st.markdown("---")
