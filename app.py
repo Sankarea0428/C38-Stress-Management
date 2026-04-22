@@ -105,28 +105,24 @@ with tab3:
     with st.form("hollow"):
         user_input = st.text_area("此刻你的压力是什么？（例如：申研、学业、社交等）")
         submit_btn = st.form_submit_button("丢进树洞")
-        
-        # 这一行必须比上面的 with st.form 往后缩进 4 个空格
         if submit_btn and user_input:
             st.success("压力已接收，记得给自己一个拥抱！")
             st.markdown("### 💡 针对你的压力，我们建议：")
-            
-            # 以下所有的 if/elif 必须比上面的 if 再次缩进 4 个空格
             if "申研" in user_input or "考研" in user_input:
-                st.info("📚 **发现你在关注升学：**")
+                st.info("📚 **发现你在关注升学：黑夜里洗衣服，天亮自见分晓，申请季就像在黑夜里洗衣服，你看不清洗干净没有，只能一遍遍地搓洗、等待。这种对未来的不确定感是最大的压力源，但请相信，只要你没有停止努力，等天亮的那一刻，你会发现衣服一定是干干净净的。Offer 或许会迟到，但属于你的光芒绝不会熄灭。西浦广阔的平台是你最坚实的后盾，你只需负责优秀，剩下的交给时间。**")
                 st.markdown("""
                 - 建议访问 [西浦升学就业处官网](https://www.xjtlu.edu.cn/zh/study/career-development-and-employability) 获取最新的升学指导。
                 - 查看 [西浦研究生申请指南](https://www.xjtlu.edu.cn/zh/admissions/masters/how-to-apply) 获取详细流程。
                 """)
             
             elif "学业" in user_input or "考试" in user_input:
-                st.info("📝 **学业压力：**")
+                st.info("📝 **学业压力：星光不问赶路人，西浦的学术路或许布满挑战，GPA 的起伏也曾让你彻夜难眠。但请记住，学习不是为了填满一个名为“标准”的容器，而是为了点燃你内心深处对世界的好奇之火。那些在 LRC（图书馆）熬过的深夜、反复修改的论文，不仅是在塑造你的成绩，更是在磨砺你面对复杂世界的韧性。即使偶尔感到挫败，也请相信：你走过的路，每一步都算数。**")
                 st.markdown("""
                 - 访问 [学习资源中心 (LRC)](https://lib.xjtlu.edu.cn/) 获取学术支持。
                 """)
             
             else:
-                st.info("✨ **通用资源：**")
+                st.info("✨ **通用资源：你才是那个最该爱自己的人**")
                 st.markdown("""
                 - 如需专业支持，请联系 [心理健康咨询中心 (MHC)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/mental-health-development-centre)。
                 """)
