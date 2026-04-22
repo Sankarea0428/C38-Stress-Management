@@ -106,11 +106,12 @@ with tab3:
         user_input = st.text_area("此刻你的压力是什么？（例如：申研、学业、社交等）")
         submit_btn = st.form_submit_button("丢进树洞")
         
-       if submit_btn and user_input:
+        # 这一行必须比上面的 with st.form 往后缩进 4 个空格
+        if submit_btn and user_input:
             st.success("压力已接收，记得给自己一个拥抱！")
             st.markdown("### 💡 针对你的压力，我们建议：")
             
-            # 关联西浦官方资源
+            # 以下所有的 if/elif 必须比上面的 if 再次缩进 4 个空格
             if "申研" in user_input or "考研" in user_input:
                 st.info("📚 **发现你在关注升学：**")
                 st.markdown("""
@@ -122,13 +123,6 @@ with tab3:
                 st.info("📝 **学业压力：**")
                 st.markdown("""
                 - 访问 [学习资源中心 (LRC)](https://lib.xjtlu.edu.cn/) 获取学术支持。
-                - 查看 [教务处 (Registry)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/registry) 了解学术政策。
-                """)
-            
-            elif "社交" in user_input or "孤独" in user_input:
-                st.info("🤝 **社交与校园生活：**")
-                st.markdown("""
-                - 关注 [西浦学生事务处 (SAO)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/student-affairs-office) 了解社团与活动。
                 """)
             
             else:
