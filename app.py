@@ -2,21 +2,36 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# --- 页面基本配置 ---
-st.set_page_config(page_title="C38 压力管理导航站", layout="wide")
+# --- Page Configuration ---
+st.set_page_config(page_title="C38 Stress Management Hub", layout="wide")
 
-# --- 自定义样式 ---
+# --- Custom CSS for Aesthetics ---
 st.markdown("""
     <style>
-    .main { background-color: #f5f7f9; }
-    .stTabs [data-baseweb="tab-list"] { gap: 24px; }
-    .stTabs [data-baseweb="tab"] { height: 50px; white-space: pre-wrap; font-weight: bold; }
+    .main { background-color: #f0f4f8; }
+    .stTabs [data-baseweb="tab-list"] { gap: 20px; }
+    .stTabs [data-baseweb="tab"] { 
+        height: 55px; 
+        font-weight: bold; 
+        font-size: 18px;
+    }
+    .suggestion-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #0077b6;
+        margin-bottom: 20px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 侧边栏：小组成员 ---
+# --- Sidebar: Group Profile ---
 st.sidebar.title("👥 Group C38")
-st.sidebar.info("LIF001 Insightful Analyst Award")
+st.sidebar.markdown("**LIF001 Insightful Analyst Award**")
+st.sidebar.divider()
+st.sidebar.markdown("### Target Audience")
+st.sidebar.info("Specifically designed for **XJTLU Freshmen** navigating the Year 1 transition.")
+
 members = [
     "Hanfan Xie", "Weishang Gao", "Zijing Guan", "Xiangshuo Liu", "Ziru Wang",
     "Jiayi Dong", "Kaman Wu", "Han Shao", "Jiayu Zou", "Shuo Shen"
@@ -24,109 +39,138 @@ members = [
 for member in members:
     st.sidebar.text(f"• {member}")
 
-# --- 主界面标题 ---
-st.title("🎓 大学生压力分析与管理导航站")
-st.markdown("---")
+# --- Main Header ---
+st.title("🎓 Student Well-being & Stress Navigation Hub")
+st.markdown("#### *A targeted support system for XJTLU Freshmen to alleviate transitional pressure.*")
+st.divider()
 
-# --- 核心逻辑：数据展示 ---
-tab1, tab2, tab3 = st.tabs(["📊 调研数据洞察", "🌿 压力生存指南", "📢 匿名树洞"])
+# --- Core Tabs ---
+tab1, tab2, tab3 = st.tabs(["📊 Research Insights", "🌿 Alleviation Toolkit", "📢 Anonymous Tree Hole"])
 
 with tab1:
-    st.header("问卷调研结果分析")
-    st.write("我们针对大一新生压力现状进行了深入调研，结果如下：")
+    st.header("Survey Data Analysis")
+    st.write("Based on our research involving XJTLU freshmen, here are the key findings regarding their mental well-being:")
     
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("📍 感受压力时首选缓解方式")
+        st.subheader("📍 Preferred Relief Methods")
         df_relief = pd.DataFrame({
-            "方式": ["独处 (睡觉/发呆)", "向老师/同学倾诉", "运动/户外运动", "学习/工作转换", "从未主动缓解", "其他"],
-            "比例": [45, 22, 15, 8, 5, 5]
+            "Method": ["Solitude (Sleep/Idle)", "Talk to Peers/Teachers", "Sports/Exercise", "Study/Work Shift", "No Active Relief", "Others"],
+            "Proportion": [45, 22, 15, 8, 5, 5]
         })
-        fig1 = px.pie(df_relief, values='比例', names='方式', hole=0.4, color_discrete_sequence=px.colors.sequential.RdBu)
+        fig1 = px.pie(df_relief, values='Proportion', names='Method', hole=0.4, 
+                     color_discrete_sequence=px.colors.sequential.Blues_r)
         st.plotly_chart(fig1, use_container_width=True)
 
     with col2:
-        st.subheader("📍 压力导致睡眠质量下降频率")
+        st.subheader("📍 Impact of Stress on Sleep Quality")
         df_sleep = pd.DataFrame({
-            "频率": ["很少出现", "每周1-2次", "从未出现", "每周3-5次", "几乎每天"],
-            "比例": [39, 22, 20, 15, 4]
+            "Frequency": ["Rarely", "1-2 times/week", "Never", "3-5 times/week", "Almost Daily"],
+            "Proportion": [39, 22, 20, 15, 4]
         })
-        fig2 = px.pie(df_sleep, values='比例', names='频率', color_discrete_sequence=px.colors.sequential.Teal)
+        fig2 = px.pie(df_sleep, values='Proportion', names='Frequency', 
+                     color_discrete_sequence=px.colors.sequential.Teal_r)
         st.plotly_chart(fig2, use_container_width=True)
 
-    st.markdown("---")
+    st.divider()
     col3, col4 = st.columns(2)
     with col3:
-        st.subheader("📍 对科学管理压力方法的了解程度")
+        st.subheader("📍 Knowledge of Stress Management")
         df_knowledge = pd.DataFrame({
-            "程度": ["了解但偶尔使用", "仅听说过名称", "经济压力相关", "从未了解", "系统学习并经常使用"],
-            "比例": [40, 19, 18, 15, 8]
+            "Level": ["Know but rarely use", "Heard of names", "Financial related", "Never heard", "Regularly use"],
+            "Proportion": [40, 19, 18, 15, 8]
         })
-        fig3 = px.bar(df_knowledge, x='程度', y='比例', color='程度', text_auto=True)
+        fig3 = px.bar(df_knowledge, x='Level', y='Proportion', color='Level', text_auto=True)
         st.plotly_chart(fig3, use_container_width=True)
 
     with col4:
-        st.subheader("📍 面对重要任务时的压力反应")
+        st.subheader("📍 Pressure Reaction on Key Tasks")
         df_reaction = pd.DataFrame({
-            "反应": ["轻微焦虑但不影响完成", "焦虑明显, 效率下降", "压力转化为动力", "无法集中精力"],
-            "比例": [52, 22, 20, 6]
+            "Reaction": ["Slight anxiety (Managed)", "High anxiety (Low efficiency)", "Pressure to Motivation", "Loss of concentration"],
+            "Proportion": [52, 22, 20, 6]
         })
-        fig4 = px.pie(df_reaction, values='比例', names='反应', hole=0.3)
+        fig4 = px.pie(df_reaction, values='Proportion', names='Reaction', hole=0.3)
         st.plotly_chart(fig4, use_container_width=True)
 
 with tab2:
-    st.header("🌿 针对性缓解建议 (Product Development Plan)")
-    st.info("基于调研结果，我们为大一新生定制了以下方案：")
+    st.header("🌿 Targeted Alleviation Strategies")
+    st.write("To move beyond simplistic advice, we offer specific methodologies to manage XJTLU academic life:")
     
-    c1, c2, c3 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
-        st.subheader("📚 学业压力")
         st.markdown("""
-        * **制定周计划**：提前规划，掌控节奏。
-        * **即时提问**：困惑不堆积，立即向老师同学求助。
-        """)
+        <div class="suggestion-card">
+        <h3>📚 Academic & Time Management</h3>
+        <ul>
+            <li><b>The Eisenhower Matrix:</b> Categorize tasks into 'Urgent' and 'Important'. Focus on Year 1 coursework before it accumulates.</li>
+            <li><b>Active Seeking:</b> Don't just 'study harder'. Utilize the <b>Learning Resource Centre (LRC)</b> academic support or contact your module leader during office hours.</li>
+            <li><b>Pomodoro Technique:</b> Break 3-hour study sessions into 25-minute sprints to avoid burnout.</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="suggestion-card">
+        <h3>🤝 Social Connectivity</h3>
+        <ul>
+            <li><b>Quality over Quantity:</b> You don't need to join every club. Pick one XJTLU society that truly aligns with your values to build a core support system.</li>
+            <li><b>Peer Mentorship:</b> Connect with Year 2 students through SAO programs to navigate the 'XJTLU system' more effectively.</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
     with c2:
-        st.subheader("🤝 社交压力")
         st.markdown("""
-        * **寻找志同道合者**：加入或创建兴趣小组。
-        * **主动破冰**：建立自己的支持系统。
-        """)
-    with c3:
-        st.subheader("🧘 心态调节")
-        st.markdown("""
-        * **20分钟法则**：每天坚持运动或放空。
-        * **接受不完美**：允许有一个不完美的开始。
-        """)
+        <div class="suggestion-card">
+        <h3>🧘 Psychological Resilience</h3>
+        <ul>
+            <li><b>Cognitive Reframing:</b> View 'bad grades' not as failure, but as data for growth. This is the 'Growth Mindset' essential for international education.</li>
+            <li><b>Digital Detox:</b> Spend 20 minutes daily away from WeChat/Moodle to reduce information overload.</li>
+            <li><b>Professional Support:</b> Contact the <b>Mental Health Development Centre (MHDC)</b> for one-on-one counseling if pressure feels overwhelming.</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 with tab3:
-    st.header("🕳️ 匿名压力树洞")
-    st.write("在这里写下你的困扰，系统会为你推荐相关的校园资源建议。")
+    st.header("📢 Anonymous Support Tree Hole")
+    st.write("Share your concerns in English. Our system will provide targeted XJTLU resources based on your input.")
     
     with st.form("hollow"):
-        user_input = st.text_area("此刻你的压力是什么？（例如：申研、学业、社交等）")
-        submit_btn = st.form_submit_button("丢进树洞")
+        user_input = st.text_area("What is weighing on your mind? (Keywords: Study, Master, Social, Exam...)")
+        submit_btn = st.form_submit_button("Release to Tree Hole")
+        
         if submit_btn and user_input:
-            st.success("压力已接收，记得给自己一个拥抱！")
-            st.markdown("### 💡 针对你的压力，我们建议：")
-            if "申研" in user_input or "考研" in user_input:
-                st.info("📚 **申研压力：黑夜里洗衣服，天亮自见分晓，申请季就像在黑夜里洗衣服，你看不清洗干净没有，只能一遍遍地搓洗、等待。这种对未来的不确定感是最大的压力源，但请相信，只要你没有停止努力，等天亮的那一刻，你会发现衣服一定是干干净净的。Offer 或许会迟到，但属于你的光芒绝不会熄灭。西浦广阔的平台是你最坚实的后盾，你只需负责优秀，剩下的交给时间。**")
+            st.success("Your message has been received. Remember, you are not alone.")
+            st.markdown("### 💡 Targeted Recommendations:")
+            
+            input_lower = user_input.lower()
+            
+            if "master" in input_lower or "apply" in input_lower or "postgraduate" in input_lower:
+                st.info("🎓 **Postgraduate Planning:** Applying for a Master's is like washing clothes in the dark; you don't know if they are clean until the morning light (Offer day). Keep pushing.")
                 st.markdown("""
-                - 建议访问 [西浦升学就业处官网](https://www.xjtlu.edu.cn/zh/study/career-development-and-employability) 获取最新的升学指导。
-                - 查看 [西浦研究生申请指南](https://www.xjtlu.edu.cn/zh/admissions/masters/how-to-apply) 获取详细流程。
+                - Visit [XJTLU Career Centre](https://www.xjtlu.edu.cn/en/study/career-development-and-employability) for guidance.
+                - Check [Postgraduate Entry Requirements](https://www.xjtlu.edu.cn/en/admissions/masters/how-to-apply).
                 """)
             
-            elif "学业" in user_input or "考试" in user_input:
-                st.info("📝 **学业压力：星光不问赶路人，西浦的学术路或许布满挑战，GPA 的起伏也曾让你彻夜难眠。但请记住，学习不是为了填满一个名为“标准”的容器，而是为了点燃你内心深处对世界的好奇之火。那些在图书馆熬过的深夜、反复修改的论文，不仅是在塑造你的成绩，更是在磨砺你面对复杂世界的韧性。即使偶尔感到挫败，也请相信：你走过的路，每一步都算数。**")
+            elif "study" in input_lower or "exam" in input_lower or "grade" in input_lower or "gpa" in input_lower:
+                st.info("📝 **Academic Resilience:** XJTLU's path is challenging. Grades are not just numbers; they are reflections of your adaptability. Every late night in the library counts.")
                 st.markdown("""
-                - 访问 [学习资源中心 (LRC)](https://lib.xjtlu.edu.cn/) 获取学术支持。
+                - Get support at [Learning Resource Centre (LRC)](https://lib.xjtlu.edu.cn/).
                 """)
             
+            elif "social" in input_lower or "friend" in input_lower or "lonely" in input_lower:
+                st.info("🤝 **Social Guidance:** True connection comes from shared frequency, not forced conformity. Find your pace.")
+                st.markdown("""
+                - Explore societies at [Student Affairs Office (SAO)](https://www.xjtlu.edu.cn/en/about/administrative-offices/student-affairs-office).
+                """)
+                
             else:
-                st.info("✨ **通用资源：你才是那个最该爱自己的人**")
+                st.info("✨ **General Wellness:** You are the person most deserving of your own love.")
                 st.markdown("""
-                - 如需专业支持，请联系 [心理健康咨询中心 (MHC)](https://www.xjtlu.edu.cn/zh/about/administrative-offices/mental-health-development-centre)。
+                - Need a talk? Contact [Mental Health Development Centre (MHDC)](https://www.xjtlu.edu.cn/en/about/administrative-offices/mental-health-development-centre).
                 """)
             
             st.balloons()
-st.markdown("---")
-st.caption("© 2026 Group C38 - 基于 LIF001 课程调研成果开发")
+
+st.divider()
+st.caption("© 2026 Group C38 - Developed based on LIF001 Research Project | Target: XJTLU Freshmen")
